@@ -50,10 +50,10 @@ const HomeScreen = () => {
   };
 
   const transactions = [
-    { name: 'Apple Store', category: 'Entertainment', amount: '- $5.99', logo: appleLogo },
-    { name: 'Spotify', category: 'Music', amount: '- $12.99', logo: spotifyLogo },
-    { name: 'Money Transfer', category: 'Transaction', amount: '$300', logo: exchangeLogo, positive: true },
-    { name: 'Grocery', category: 'Shopping', amount: '- $88', logo: shoppingCartLogo },
+    { name: 'Apple Store', category: 'Entertainment', amount: '- $5.99', logo: appleLogo, applyTint: true },
+    { name: 'Spotify', category: 'Music', amount: '- $12.99', logo: spotifyLogo, applyTint: false },
+    { name: 'Money Transfer', category: 'Transaction', amount: '$300', logo: exchangeLogo, positive: true, applyTint: false, darkModeTint: true },
+    { name: 'Grocery', category: 'Shopping', amount: '- $88', logo: shoppingCartLogo, applyTint: false },
   ];
 
   return (
@@ -89,7 +89,14 @@ const HomeScreen = () => {
         </View>
         {transactions.map((transaction, index) => (
           <View key={index} style={styles.transaction}>
-            <Image source={transaction.logo} style={[styles.transactionLogo, isDarkTheme && { tintColor: '#fff' }]} />
+            <Image 
+              source={transaction.logo} 
+              style={[
+                styles.transactionLogo, 
+                transaction.applyTint && isDarkTheme && { tintColor: '#fff' },
+                transaction.darkModeTint && isDarkTheme && { tintColor: '#fff' }
+              ]}
+            />
             <View style={styles.transactionDetails}>
               <Text style={[styles.transactionName, isDarkTheme && styles.darkText]}>{transaction.name}</Text>
               <Text style={[styles.transactionCategory, isDarkTheme && styles.darkText]}>{transaction.category}</Text>
